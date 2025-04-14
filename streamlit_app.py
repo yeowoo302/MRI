@@ -2,9 +2,9 @@ import streamlit as st
 import numpy as np
 
 gamma = 2 * np.pi * 42.58e6  # rad/s/T
-Gmax = 0.5  # T/m
+Gmax = 0.44  # T/m
 
-st.title("Interactive G₍read₎ Calculator")
+st.title("Gread Calculator")
 
 BW = st.slider("Bandwidth (kHz)", 10.0, 1000.0, 250.0) * 1e3
 FOV_mm = st.slider("FOV (mm)", 0.1, 200.0, 100.0)
@@ -23,6 +23,6 @@ st.markdown(f"Readout time (Tread): {Tread * 1e3:.2f} ms")
 st.markdown(f"Resolution: {res * 1e3:.3f} mm")
 
 if BW > BW_limit:
-    st.error(f"⚠️ Gread exceeds limit! (limit BW ≈ {BW_limit/1e3:.1f} kHz)")
+    st.error(f"Gread exceeds limit! (limit BW ≈ {BW_limit/1e3:.1f} kHz)")
 else:
     st.success("Gread is within safe range.")
