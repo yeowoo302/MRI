@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 
 gamma = 2 * np.pi * 42.58e6  # rad/s/T
-Gmax = 0.44  # T/m
+Gmax = 0.45  # T/m
 
 st.title("Gread Calculator")
 
