@@ -17,7 +17,7 @@ Nx = st.slider("Matrix Size (Nx)", 16, 512, 128)
 # Derived
 FOV = FOV_mm / 1e3
 dwell = 1 / BW
-Tread = Nx * dwell
+Tx = Nx * dwell
 Gx = (BW * 2 * np.pi) / (gamma * FOV)
 res = FOV / Nx
 BW_limit = Gmax * gamma * FOV / (2 * np.pi)
@@ -25,7 +25,7 @@ BW_limit = Gmax * gamma * FOV / (2 * np.pi)
 # Output values
 st.markdown(f"**Gx:** {Gx*1e3:.3f} mT/m")
 st.markdown(f"**Δt:** {dwell*1e6:.2f} µs")
-st.markdown(f"**Tread:** {Tread*1e3:.2f} ms")
+st.markdown(f"**Tx:** {Tx*1e3:.2f} ms")
 st.markdown(f"**Resolution:** {res*1e3:.3f} mm")
 
 if BW > BW_limit:
@@ -39,14 +39,14 @@ dt = 1e-6  # simulation time resolution
 
 # Time vectors
 t_ramp_up = np.arange(0, Tramp, dt)
-t_flat = np.arange(Tramp, Tramp + Tread, dt)
-t_ramp_down = np.arange(Tramp + Tread, 2*Tramp + Tread, dt)
+t_flat = np.arange(Tramp, Tramp + Tx, dt)
+t_ramp_down = np.arange(Tramp + Tx, 2*Tramp + Tx, dt)
 t_all = np.concatenate([t_ramp_up, t_flat, t_ramp_down])
 
 # Waveform
 g_up = Gx * (t_ramp_up / Tramp)
 g_flat = np.ones_like(t_flat) * Gx
-g_down = Gx * (1 - (t_ramp_down - (Tramp + Tread)) / Tramp)
+g_down = Gx * (1 - (t_ramp_down - (Tramp + Tx)) / Tramp)
 g_all = np.concatenate([g_up, g_flat, g_down])
 
 # Plot
